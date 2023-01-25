@@ -1,21 +1,28 @@
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import PropertyCard from './components/PropertyCard';
 import './App.css';
 
 function App() {
+  const [dummyData, setDummyData] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:1000/dummydata')
+      .then(res => {
+        setDummyData(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {dummyData.map(properties => (
+        <PropertyCard
+          key={properties.id} property={properties}
+        />
+      ))}
     </div>
   );
 }
