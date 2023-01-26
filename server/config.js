@@ -10,6 +10,7 @@ if (result.error) {
 const { parsed: envs } = result;
 console.log(envs);
 
+const PORT = process.env.PORT
 const pool = new Pool({
     host: process.env.PGHOST,
     user: process.env.PGUSER,
@@ -18,4 +19,4 @@ const pool = new Pool({
     port: process.env.PGPORT
 });
 
-module.exports = { envs, pool };
+module.exports = { envs, pool, PORT };
